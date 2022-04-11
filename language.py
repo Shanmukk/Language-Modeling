@@ -17,7 +17,14 @@ Parameters: str
 Returns: 2D list of strs
 '''
 def loadBook(filename):
-    return
+    read = open(filename,"r")
+    list = []
+    for line in read:
+        s = line.strip()
+        v = s.split()
+        if v:
+            list.append(v)
+    return list
 
 
 '''
@@ -303,3 +310,4 @@ if __name__ == "__main__":
     print("\n" + "#"*15 + " WEEK 3 OUTPUT " + "#" * 15 + "\n")
     test.runWeek3()
 """
+    
