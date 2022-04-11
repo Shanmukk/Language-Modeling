@@ -20,8 +20,8 @@ def loadBook(filename):
     read = open(filename,"r")
     list = []
     for line in read:
-        s = line.strip()
-        v = s.split()
+        #s = line.strip()
+        v = line.split()
         if v:
             list.append(v)
     return list
@@ -79,7 +79,11 @@ Parameters: 2D list of strs
 Returns: list of strs
 '''
 def getStartWords(corpus):
-    return
+    l = []
+    for i in range(len(corpus)):
+        if corpus[i][0] not in l:
+            l.append(corpus[i][0])
+    return l
 
 
 '''
@@ -89,7 +93,17 @@ Parameters: 2D list of strs
 Returns: dict mapping strs to ints
 '''
 def countStartWords(corpus):
-    return
+    list=[]
+    dict={}
+    for i in range(len(corpus)):
+        list.append(corpus[i][0])
+    for i in range(len(list)):
+        if list[i] not in dict:
+            dict[list[i]]=1
+        else:
+            dict[list[i]]+=1
+    return dict
+
 
 
 '''
@@ -99,8 +113,18 @@ Parameters: 2D list of strs
 Returns: dict mapping strs to (dicts mapping strs to ints)
 '''
 def countBigrams(corpus):
-    return
-
+    d = {}
+    for i in range(len(corpus)):
+        for j in range(len(corpus[i])-1):
+            if corpus[i][j] not in d:
+                d[corpus[i][j]] = {}
+                d[corpus[i][j]][corpus[i][j+1]] = 1
+            else:
+                if corpus[i][j+1] in d[corpus[i][j]]:
+                    d[corpus[i][j]][corpus[i][j+1]] += 1
+                else:
+                    d[corpus[i][j]][corpus[i][j+1]] = 1
+    return d
 
 ### WEEK 2 ###
 
@@ -313,16 +337,15 @@ if __name__ == "__main__":
     test.runWeek1()
 
     ## Uncomment these for Week 2 ##
-"""
+    """
     print("\n" + "#"*15 + " WEEK 2 TESTS " +  "#" * 16 + "\n")
     test.week2Tests()
     print("\n" + "#"*15 + " WEEK 2 OUTPUT " + "#" * 15 + "\n")
     test.runWeek2()
-"""
+    """
 
     ## Uncomment these for Week 3 ##
-"""
+    """
     print("\n" + "#"*15 + " WEEK 3 OUTPUT " + "#" * 15 + "\n")
     test.runWeek3()
-"""
-    
+    """
