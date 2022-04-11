@@ -150,7 +150,13 @@ Parameters: list of strs ; dict mapping strs to ints ; int
 Returns: list of floats
 '''
 def buildUnigramProbs(unigrams, unigramCounts, totalCount):
-    return
+    l = []
+    for index in unigrams:
+        if index in unigramCounts:
+            l.append(unigramCounts[index]/totalCount)
+        else:
+            l.append(0)
+    return l
 
 
 '''
