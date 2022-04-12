@@ -4,6 +4,7 @@ Name:
 Roll No:
 """
 
+from matplotlib.pyplot import title
 import language_tests as test
 from collections import Counter
 
@@ -219,6 +220,13 @@ Parameters: int ; list of strs ; list of floats ; dict mapping strs to (dicts ma
 Returns: str
 '''
 def generateTextFromBigrams(count, startWords, startWordProbs, bigramProbs):
+    '''s = " "
+    for i in range(count):
+        l = choices(startWords, weights=startWordProbs)
+        if i == 0 or "." in l:
+            k = " ".join(l)
+            s += " " + str(k)
+    return s'''
     return
 
 
@@ -236,6 +244,11 @@ Parameters: 2D list of strs
 Returns: None
 '''
 def graphTop50Words(corpus):
+    voc = buildVocabulary(corpus)
+    unigram = countUnigrams(corpus)
+    prob = buildUnigramProbs(voc, unigram, 50)
+    g = getTopWords(50, voc, prob, ignore)
+    barPlot(g,"Top 50 words")
     return
 
 
@@ -371,14 +384,14 @@ if __name__ == "__main__":
 
     ## Uncomment these for Week 2 ##
     
-    print("\n" + "#"*15 + " WEEK 2 TESTS " +  "#" * 16 + "\n")
+    '''print("\n" + "#"*15 + " WEEK 2 TESTS " +  "#" * 16 + "\n")
     test.week2Tests()
     print("\n" + "#"*15 + " WEEK 2 OUTPUT " + "#" * 15 + "\n")
-    test.runWeek2()
+    test.runWeek2()'''
     
 
     ## Uncomment these for Week 3 ##
-    """
+    
     print("\n" + "#"*15 + " WEEK 3 OUTPUT " + "#" * 15 + "\n")
     test.runWeek3()
-    """
+    
