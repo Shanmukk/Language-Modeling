@@ -5,6 +5,8 @@ Roll No:
 """
 
 import language_tests as test
+import operator
+from collections import Counter
 
 project = "Language" # don't edit this
 
@@ -177,7 +179,6 @@ def buildBigramProbs(unigramCounts, bigramCounts):
             temp["words"] = keys
             temp["probs"] = probs
         d[i] = temp
-    #print(d)
     return d
 
 
@@ -188,8 +189,16 @@ Parameters: int ; list of strs ; list of floats ; list of strs
 Returns: dict mapping strs to floats
 '''
 def getTopWords(count, words, probs, ignoreList):
-    return
-
+    d = {}
+    g = {}
+    for i in range(len(words)):
+        if words[i] not in ignoreList:
+            d[words[i]] = probs[i]
+    k = Counter(d)
+    k = k.most_common(count)
+    for key,value in k:
+        g[key] = value
+    return g
 
 '''
 generateTextFromUnigrams(count, words, probs)
