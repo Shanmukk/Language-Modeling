@@ -93,18 +93,15 @@ Parameters: 2D list of strs
 Returns: dict mapping strs to ints
 '''
 def countStartWords(corpus):
-    list=[]
-    dict={}
+    l = []
+    d = {}
     for i in range(len(corpus)):
-        list.append(corpus[i][0])
-    for i in range(len(list)):
-        if list[i] not in dict:
-            dict[list[i]]=1
+        l = corpus[i][0]
+        if l not in d:
+            d[l] = 1
         else:
-            dict[list[i]]+=1
-    return dict
-
-
+            d[l] += 1
+    return d
 
 '''
 countBigrams(corpus)
@@ -166,7 +163,22 @@ Parameters: dict mapping strs to ints ; dict mapping strs to (dicts mapping strs
 Returns: dict mapping strs to (dicts mapping strs to (lists of values))
 '''
 def buildBigramProbs(unigramCounts, bigramCounts):
-    return
+    d = {}
+    for i in bigramCounts:
+        keys = []
+        probs = []
+        for key,value in bigramCounts[i].items():
+            temp = {}
+            keys.append(key)
+            if value/unigramCounts[i] == 1.0:
+                probs.append(value//unigramCounts[i])
+            if value/unigramCounts[i] < 1.0:
+                probs.append(value/unigramCounts[i])
+            temp["words"] = keys
+            temp["probs"] = probs
+        d[i] = temp
+    #print(d)
+    return d
 
 
 '''
