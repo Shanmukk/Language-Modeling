@@ -5,7 +5,6 @@ Roll No:
 """
 
 import language_tests as test
-import operator
 from collections import Counter
 
 project = "Language" # don't edit this
@@ -172,10 +171,7 @@ def buildBigramProbs(unigramCounts, bigramCounts):
         for key,value in bigramCounts[i].items():
             temp = {}
             keys.append(key)
-            if value/unigramCounts[i] == 1.0:
-                probs.append(value//unigramCounts[i])
-            if value/unigramCounts[i] < 1.0:
-                probs.append(value/unigramCounts[i])
+            probs.append(value/unigramCounts[i])
             temp["words"] = keys
             temp["probs"] = probs
         d[i] = temp
@@ -208,7 +204,12 @@ Returns: str
 '''
 from random import choices
 def generateTextFromUnigrams(count, words, probs):
-    return
+    s = " "
+    for i in range(count):
+        l = choices(words, weights=probs)
+        k = " ".join(l)
+        s += " " + str(k)
+    return s
 
 
 '''
