@@ -17,7 +17,14 @@ Parameters: str
 Returns: 2D list of strs
 '''
 def loadBook(filename):
-    return
+    read = open(filename,"r")
+    list = []
+    for line in read:
+        #s = line.strip()
+        v = line.split()
+        if v:
+            list.append(v)
+    return list
 
 
 '''
@@ -27,7 +34,10 @@ Parameters: 2D list of strs
 Returns: int
 '''
 def getCorpusLength(corpus):
-    return
+    count = 0
+    for i in corpus:
+        count += len(i)
+    return count
 
 
 '''
@@ -37,7 +47,12 @@ Parameters: 2D list of strs
 Returns: list of strs
 '''
 def buildVocabulary(corpus):
-    return
+    l = []
+    for i in range(len(corpus)):
+        for j in corpus[i]:
+            if j not in l:
+                l.append(j)
+    return l
 
 
 '''
@@ -47,7 +62,14 @@ Parameters: 2D list of strs
 Returns: dict mapping strs to ints
 '''
 def countUnigrams(corpus):
-    return
+    d = {}
+    for i in range(len(corpus)):
+        for j in corpus[i]:
+            if j in d:
+                d[j] += 1
+            else:
+                d[j] = 1
+    return d
 
 
 '''
@@ -57,7 +79,11 @@ Parameters: 2D list of strs
 Returns: list of strs
 '''
 def getStartWords(corpus):
-    return
+    l = []
+    for i in range(len(corpus)):
+        if corpus[i][0] not in l:
+            l.append(corpus[i][0])
+    return l
 
 
 '''
@@ -67,7 +93,17 @@ Parameters: 2D list of strs
 Returns: dict mapping strs to ints
 '''
 def countStartWords(corpus):
-    return
+    list=[]
+    dict={}
+    for i in range(len(corpus)):
+        list.append(corpus[i][0])
+    for i in range(len(list)):
+        if list[i] not in dict:
+            dict[list[i]]=1
+        else:
+            dict[list[i]]+=1
+    return dict
+
 
 
 '''
@@ -77,8 +113,18 @@ Parameters: 2D list of strs
 Returns: dict mapping strs to (dicts mapping strs to ints)
 '''
 def countBigrams(corpus):
-    return
-
+    d = {}
+    for i in range(len(corpus)):
+        for j in range(len(corpus[i])-1):
+            if corpus[i][j] not in d:
+                d[corpus[i][j]] = {}
+                d[corpus[i][j]][corpus[i][j+1]] = 1
+            else:
+                if corpus[i][j+1] in d[corpus[i][j]]:
+                    d[corpus[i][j]][corpus[i][j+1]] += 1
+                else:
+                    d[corpus[i][j]][corpus[i][j+1]] = 1
+    return d
 
 ### WEEK 2 ###
 
@@ -89,7 +135,12 @@ Parameters: list of strs
 Returns: list of floats
 '''
 def buildUniformProbs(unigrams):
-    return
+    l = []
+    i = 0
+    while i < len(unigrams):
+        l.append(1/len(unigrams))
+        i += 1
+    return l
 
 
 '''
@@ -99,7 +150,13 @@ Parameters: list of strs ; dict mapping strs to ints ; int
 Returns: list of floats
 '''
 def buildUnigramProbs(unigrams, unigramCounts, totalCount):
-    return
+    l = []
+    for index in unigrams:
+        if index in unigramCounts:
+            l.append(unigramCounts[index]/totalCount)
+        else:
+            l.append(0)
+    return l
 
 
 '''
@@ -285,21 +342,21 @@ def scatterPlot(xs, ys, labels, title):
 
 # This code runs the test cases to check your work
 if __name__ == "__main__":
-    print("\n" + "#"*15 + " WEEK 1 TESTS " +  "#" * 16 + "\n")
+    '''print("\n" + "#"*15 + " WEEK 1 TESTS " +  "#" * 16 + "\n")
     test.week1Tests()
     print("\n" + "#"*15 + " WEEK 1 OUTPUT " + "#" * 15 + "\n")
-    test.runWeek1()
+    test.runWeek1()'''
 
     ## Uncomment these for Week 2 ##
-"""
+    
     print("\n" + "#"*15 + " WEEK 2 TESTS " +  "#" * 16 + "\n")
     test.week2Tests()
     print("\n" + "#"*15 + " WEEK 2 OUTPUT " + "#" * 15 + "\n")
     test.runWeek2()
-"""
+    
 
     ## Uncomment these for Week 3 ##
-"""
+    """
     print("\n" + "#"*15 + " WEEK 3 OUTPUT " + "#" * 15 + "\n")
     test.runWeek3()
-"""
+    """
